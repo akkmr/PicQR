@@ -1,5 +1,12 @@
 const imageInput = document.getElementById('image-input');
 const urlInput = document.getElementById('url-input');
+const clearUrlBtn = document.getElementById('clear-url-btn');
+
+clearUrlBtn.addEventListener('click', () => {
+    urlInput.value = '';
+    urlInput.focus();
+});
+
 const generateQrBtn = document.getElementById('generate-qr-btn');
 const outputCanvas = document.getElementById('output-canvas');
 const outputImage = document.getElementById('output-image');
