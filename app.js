@@ -99,8 +99,8 @@ async function generateImageWithQRCode(url, image) {
     
     console.log('Image drawn on canvas');
 
-    // QRコードのサイズを画像サイズに応じて調整（短辺の11%、最小100px、最大220px）
-    const qrSize = Math.min(220, Math.max(100, Math.floor(Math.min(canvasWidth, canvasHeight) * 0.11)));
+    // QRコードの1辺を「画像の短い辺の1/4」に設定
+    const qrSize = Math.floor(Math.min(canvasWidth, canvasHeight) / 4);
     const qrPadding = Math.floor(qrSize * 0.08); // QRコードサイズに応じた余白
     
     // 画像の右下にQRコードを配置
