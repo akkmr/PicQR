@@ -45,8 +45,8 @@ function getContrastRatioWithWhite(hex) {
 
 function checkColorContrast() {
     const contrast = getContrastRatioWithWhite(qrColorInput.value);
-    // QRコードとして安定して読み取れる目安として、コントラスト比4.5未満は警告する
-    colorWarning.style.display = contrast < 4.5 ? 'block' : 'none';
+    // 画像データを直接デコードする用途を想定し、コントラスト比3.0未満で警告する
+    colorWarning.style.display = contrast < 3.0 ? 'block' : 'none';
 }
 
 qrColorInput.addEventListener('input', checkColorContrast);
@@ -80,7 +80,7 @@ autoColorBtn.addEventListener('click', () => {
     // 白背景とのコントラスト比が十分になるまで、色を段階的に暗くする
     let scale = 1.0;
     let hex = rgbToHex(r, g, b);
-    while (getContrastRatioWithWhite(hex) < 4.5 && scale > 0.05) {
+    while (getContrastRatioWithWhite(hex) < 3.0 && scale > 0.05) {
         scale -= 0.05;
         hex = rgbToHex(Math.round(r * scale), Math.round(g * scale), Math.round(b * scale));
     }
@@ -167,8 +167,8 @@ async function generateImageWithQRCode(url, image) {
     
     console.log('Image drawn on canvas');
 
-    // QRコードの1辺を「画像の短い辺の1/4」に設定
-    const qrSize = Math.floor(Math.min(canvasWidth, canvasHeight) / 4);
+    // QRコードのサイズを画像サイズに応じて調整（短辺の11%、最小100px、最大220px）
+    const qrSize = Math.min(220, Math.max(100, Math.floor(Math.min(canvasWidth, canvasHeight) * 0.11)));
     const qrPadding = Math.floor(qrSize * 0.08); // QRコードサイズに応じた余白
     
     // 画像の右下にQRコードを配置
