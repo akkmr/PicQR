@@ -59,6 +59,14 @@ body {
   margin-bottom: 50px;
 }
 
+.save-hint {
+  font-size: 13px;
+  color: #666;
+  max-width: 80%;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
 #output-canvas {
   display: none;
   max-width: 90%;

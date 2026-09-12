@@ -2,6 +2,8 @@ const imageInput = document.getElementById('image-input');
 const urlInput = document.getElementById('url-input');
 const generateQrBtn = document.getElementById('generate-qr-btn');
 const outputCanvas = document.getElementById('output-canvas');
+const outputImage = document.getElementById('output-image');
+const saveHint = document.getElementById('save-hint');
 const downloadSection = document.getElementById('download-section');
 const downloadBtn = document.getElementById('download-btn');
 const ctx = outputCanvas.getContext('2d');
@@ -141,16 +143,23 @@ async function generateImageWithQRCode(url, image) {
     
     console.log('QR code drawn on canvas');
 
-    // キャンバスとダウンロードボタンを表示
-    outputCanvas.style.display = 'block';
-    outputCanvas.style.border = '2px solid #ddd';
-    outputCanvas.style.marginTop = '20px';
-    outputCanvas.style.maxWidth = '100%';
-    outputCanvas.style.height = 'auto';
-    
+    // 結果をimg要素にも表示する（長押しで「写真に追加」できるようにするため）
+    // canvasは長押しでの保存に対応していないブラウザがあるが、imgならOS標準の長押しメニューが使える
+    const dataUrl = outputCanvas.toDataURL('image/png');
+    outputImage.src = dataUrl;
+    outputImage.style.display = 'block';
+    outputImage.style.border = '2px solid #ddd';
+    outputImage.style.marginTop = '20px';
+    outputImage.style.maxWidth = '100%';
+    outputImage.style.height = 'auto';
+
+    if (saveHint) {
+        saveHint.style.display = 'block';
+    }
+
     if (downloadSection) {
         downloadSection.style.display = 'block';
     }
-    
-    console.log('Canvas and download button displayed');
+
+    console.log('Image and download button displayed');
 }
