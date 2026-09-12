@@ -1,0 +1,113 @@
+@import url(fontawesome.css);
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,900");
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+#page-wrapper {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100%;
+}
+#canvas {
+  width: 50px;
+}
+
+.page-main {
+  text-align: center;
+}
+.page-main * {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.title {
+  margin-top: 90px;
+  font-size: 30px;
+}
+.catchphrase {
+  margin-top: -50px;
+  margin-bottom: 40px;
+  font-size: 15px;
+  color: #999;
+}
+
+.io {
+  font-size: 17px;
+  color: #999;
+}
+.pictograms {
+  color: #000;
+}
+.image-input {
+  margin-top: -14px;
+  margin-bottom: 20px;
+}
+.url-input {
+  margin-top: -14px;
+  margin-bottom: 20px;
+}
+.button {
+  margin-top: -14px;
+  margin-bottom: 30px;
+}
+
+.image-output {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+#output-canvas {
+  display: none;
+  max-width: 90%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+.download-section {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+#download-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+
+#download-btn:hover {
+  background-color: #45a049;
+}
+
+#generate-qr-btn {
+  background-color: #008CBA;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+
+#generate-qr-btn:hover {
+  background-color: #007399;
+}
+
+.copyright {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 11px;
+  color: #999
+}

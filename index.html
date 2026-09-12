@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicQR</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="https://kit.fontawesome.com/0f7772acac.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.0.7/build/qr-code-styling.min.js"></script>
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <div class="page-main">
+        <div class="title">
+          <h1>PicQR</h1>
+        </div>
+        <div class="catchphrase">
+          <span>Put QR on your Pic</span>
+        </div>
+        <p class="io">
+          <span class="pictograms">
+            <i class="fa-regular fa-image"></i>
+          </span>
+        </p>
+        <div class="image-input">
+          <input type="file" id="image-input" accept="image/*">
+        </div>
+        <i class="fa-solid fa-plus"></i>
+        <p class="io">
+          <span class="pictograms">URL</span>
+        </p>
+        <div class="url-input">
+          <input type="text" id="url-input" placeholder="Enter URL">
+        </div>
+        <i class="fa-solid fa-down-long"></i><br>
+        <p class="io">
+          <span class="pictograms">
+            <i class="fa-solid fa-qrcode"></i>
+            on
+            <i class="fa-regular fa-image"></i>
+          </span>
+        </p>
+        <div class="button">
+          <button id="generate-qr-btn">Generate QR on Image</button>
+        </div>
+        <div class="image-output">
+          <canvas id="output-canvas"></canvas>
+        </div>
+        <div class="download-section" id="download-section" style="display: none;">
+          <button id="download-btn">Download Image</button>
+        </div>
+        <script src="app.js"></script>
+        <div class="copyright">
+          <p>
+            ©︎ 2023 Akihito Kimura
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
