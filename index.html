@@ -49,11 +49,11 @@
           </span>
         </p>
         <div class="qr-color-section">
-          <label for="qr-color">QRコードの色：</label>
+          <label for="qr-color">QR Code Color: </label>
           <input type="color" id="qr-color" value="#000000">
-          <button type="button" id="auto-color-btn">画像に合わせて自動設定</button>
+          <button type="button" id="auto-color-btn">Auto</button>
           <p class="color-warning" id="color-warning" style="display:none;">
-            選んだ色は背景（白）とのコントラストが低く、読み取りにくくなる可能性があります。
+            The color you selected has low contrast with the background (white), which may make it impossible to scan the QR.
           </p>
         </div>
         <div class="button">
@@ -64,7 +64,7 @@
           <img id="output-image" style="display:none;" alt="QRコード付き画像">
         </div>
         <div class="download-section" id="download-section" style="display: none;">
-          <button id="download-btn">画像を保存</button>
+          <button id="download-btn">Save Image</button>
         </div>
         <script src="app.js"></script>
         <div class="copyright">
