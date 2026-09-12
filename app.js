@@ -46,16 +46,37 @@ generateQrBtn.addEventListener('click', async () => {
 });
 
 downloadBtn.addEventListener('click', () => {
-    outputCanvas.toBlob((blob) => {
+    outputCanvas.toBlob(async (blob) => {
         if (!blob) {
             alert('画像の生成に失敗しました。もう一度お試しください。');
             return;
         }
+
+        const file = new File([blob], 'image-with-qr.png', { type: 'image/png' });
+
+        // スマホなど、ファイル共有に対応している場合は共有シートを開く
+        // （ここから「イメージを保存」「フォトに保存」などを選ぶと写真アプリに直接保存できる）
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({
+                    files: [file],
+                    title: 'QRコード付き画像',
+                });
+                return;
+            } catch (err) {
+                // ユーザーが共有をキャンセルした場合は何もしない
+                if (err.name === 'AbortError') {
+                    return;
+                }
+                console.warn('共有に失敗したため、通常のダウンロードを行います:', err);
+            }
+        }
+
+        // 共有APIが使えないPCブラウザなどは、従来通りファイルとしてダウンロード
         const objectUrl = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = objectUrl;
         link.download = 'image-with-qr.png';
-        // モバイルブラウザでも確実に動作するよう、DOMに追加してからクリックする
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
