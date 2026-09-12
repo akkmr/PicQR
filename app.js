@@ -46,10 +46,21 @@ generateQrBtn.addEventListener('click', async () => {
 });
 
 downloadBtn.addEventListener('click', () => {
-    const link = document.createElement('a');
-    link.download = 'image-with-qr.png';
-    link.href = outputCanvas.toDataURL('image/png');
-    link.click();
+    outputCanvas.toBlob((blob) => {
+        if (!blob) {
+            alert('画像の生成に失敗しました。もう一度お試しください。');
+            return;
+        }
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = objectUrl;
+        link.download = 'image-with-qr.png';
+        // モバイルブラウザでも確実に動作するよう、DOMに追加してからクリックする
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    }, 'image/png');
 });
 
 async function generateImageWithQRCode(url, image) {
@@ -65,9 +76,9 @@ async function generateImageWithQRCode(url, image) {
     
     console.log('Image drawn on canvas');
 
-    // QRコードのサイズを画像サイズに応じて調整（画像の10%、最小80px、最大150px）
-    const qrSize = Math.max(80, Math.min(150, Math.floor(Math.min(canvasWidth, canvasHeight) * 0.1)));
-    const qrPadding = Math.floor(qrSize * 0.1); // QRコードサイズの10%を余白に
+    // QRコードのサイズを画像サイズに応じて調整（短辺の25%、最小150px。上限は設けない）
+    const qrSize = Math.max(150, Math.floor(Math.min(canvasWidth, canvasHeight) * 0.25));
+    const qrPadding = Math.floor(qrSize * 0.08); // QRコードサイズに応じた余白
     
     // 画像の右下にQRコードを配置
     const qrX = canvasWidth - qrSize - qrPadding;
@@ -86,8 +97,8 @@ async function generateImageWithQRCode(url, image) {
     const moduleCount = qr.getModuleCount();
     const cellSize = qrSize / moduleCount;
     
-    // 白い背景でQRコードを囲む（視認性向上のため）
-    const bgPadding = 5;
+    // 白い背景でQRコードを囲む（視認性向上のため。QRサイズに応じて余白も調整）
+    const bgPadding = Math.max(8, Math.floor(qrSize * 0.05));
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(qrX - bgPadding, qrY - bgPadding, qrSize + bgPadding * 2, qrSize + bgPadding * 2);
     
