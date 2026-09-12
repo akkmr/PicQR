@@ -43,6 +43,14 @@
             <i class="fa-regular fa-image"></i>
           </span>
         </p>
+        <div class="qr-color-section">
+          <label for="qr-color">QRコードの色：</label>
+          <input type="color" id="qr-color" value="#000000">
+          <button type="button" id="auto-color-btn">画像に合わせて自動設定</button>
+          <p class="color-warning" id="color-warning" style="display:none;">
+            選んだ色は背景（白）とのコントラストが低く、読み取りにくくなる可能性があります。
+          </p>
+        </div>
         <div class="button">
           <button id="generate-qr-btn">Generate QR on Image</button>
         </div>
