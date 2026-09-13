@@ -61,7 +61,7 @@ qrColorInput.addEventListener('input', checkColorContrast);
 // 画像の平均的な色を抽出し、白背景でも読み取れるよう十分に暗く調整してから提案する
 autoColorBtn.addEventListener('click', () => {
     if (!imageLoaded) {
-        alert('先に画像を選択してください。');
+        alert('Please select an image first.');
         return;
     }
 
@@ -104,12 +104,12 @@ function rgbToHex(r, g, b) {
 generateQrBtn.addEventListener('click', async () => {
     const url = urlInput.value;
     if (!url) {
-        alert('URLを入力してください。');
+        alert('Please enter a URL.');
         return;
     }
     
     if (!imageLoaded) {
-        alert('画像を選択してください。');
+        alert('Please select an image.');
         return;
     }
 
@@ -118,14 +118,14 @@ generateQrBtn.addEventListener('click', async () => {
         console.log('QR code generated successfully');
     } catch (error) {
         console.error('Error generating QR code:', error);
-        alert('QRコードの生成中にエラーが発生しました: ' + error.message);
+        alert('An error occured while generating the QR code.: ' + error.message);
     }
 });
 
 downloadBtn.addEventListener('click', () => {
     outputCanvas.toBlob(async (blob) => {
         if (!blob) {
-            alert('画像の生成に失敗しました。もう一度お試しください。');
+            alert('Failed to generate the image. Please try again.');
             return;
         }
 
@@ -137,7 +137,7 @@ downloadBtn.addEventListener('click', () => {
             try {
                 await navigator.share({
                     files: [file],
-                    title: 'QRコード付き画像',
+                    title: 'Image with a QR code',
                 });
                 return;
             } catch (err) {
@@ -145,7 +145,7 @@ downloadBtn.addEventListener('click', () => {
                 if (err.name === 'AbortError') {
                     return;
                 }
-                console.warn('共有に失敗したため、通常のダウンロードを行います:', err);
+                console.warn('Since sharing failed, the image will be downloaded normally:', err);
             }
         }
 
