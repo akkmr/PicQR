@@ -153,22 +153,6 @@ body {
   background-color: #45a049;
 }
 
-#share-btn {
-  background-color: #008CBA;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  margin-left: 10px;
-}
-
-#share-btn:hover {
-  background-color: #007399;
-}
-
 #generate-qr-btn {
   background-color: #008CBA;
   color: white;
