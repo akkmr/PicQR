@@ -13,6 +13,7 @@ const outputImage = document.getElementById('output-image');
 const saveHint = document.getElementById('save-hint');
 const downloadSection = document.getElementById('download-section');
 const downloadBtn = document.getElementById('download-btn');
+const shareBtn = document.getElementById('share-btn');
 const qrColorInput = document.getElementById('qr-color');
 const autoColorBtn = document.getElementById('auto-color-btn');
 const colorWarning = document.getElementById('color-warning');
@@ -122,34 +123,13 @@ generateQrBtn.addEventListener('click', async () => {
     }
 });
 
+// 「保存」ボタン：デバイスによらず、常にファイルとして直接ダウンロードする
 downloadBtn.addEventListener('click', () => {
-    outputCanvas.toBlob(async (blob) => {
+    outputCanvas.toBlob((blob) => {
         if (!blob) {
             alert('Failed to generate the image. Please try again.');
             return;
         }
-
-        const file = new File([blob], 'image-with-qr.png', { type: 'image/png' });
-
-        // スマホなど、ファイル共有に対応している場合は共有シートを開く
-        // （ここから「イメージを保存」「フォトに保存」などを選ぶと写真アプリに直接保存できる）
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            try {
-                await navigator.share({
-                    files: [file],
-                    title: 'Image with a QR code',
-                });
-                return;
-            } catch (err) {
-                // ユーザーが共有をキャンセルした場合は何もしない
-                if (err.name === 'AbortError') {
-                    return;
-                }
-                console.warn('Since sharing failed, the image will be downloaded normally:', err);
-            }
-        }
-
-        // 共有APIが使えないPCブラウザなどは、従来通りファイルとしてダウンロード
         const objectUrl = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = objectUrl;
@@ -158,6 +138,32 @@ downloadBtn.addEventListener('click', () => {
         link.click();
         document.body.removeChild(link);
         setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    }, 'image/png');
+});
+
+// 「共有」ボタン：OS標準の共有シートを開く（対応している端末・ブラウザでのみボタンを表示する）
+shareBtn.addEventListener('click', () => {
+    outputCanvas.toBlob(async (blob) => {
+        if (!blob) {
+            alert('Failed to generate the image. Please try again.');
+            return;
+        }
+        const file = new File([blob], 'image-with-qr.png', { type: 'image/png' });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({
+                    files: [file],
+                    title: 'Image with a QR code',
+                });
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.warn('Share failed:', err);
+                }
+            }
+        } else {
+            alert('Sharing is not supported on this device/browser. Please use "Save Image" instead.');
+        }
     }, 'image/png');
 });
 
@@ -237,6 +243,11 @@ async function generateImageWithQRCode(url, image) {
 
     if (downloadSection) {
         downloadSection.style.display = 'block';
+    }
+
+    // 共有APIに対応している端末・ブラウザの場合のみ「共有」ボタンを表示する
+    if (shareBtn) {
+        shareBtn.style.display = (typeof navigator.share === 'function') ? 'inline-block' : 'none';
     }
 
     console.log('Image and download button displayed');
