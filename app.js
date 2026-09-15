@@ -160,7 +160,6 @@ downloadBtn.addEventListener('click', () => {
         const link = document.createElement('a');
         link.href = objectUrl;
         link.download = 'image-with-qr.png';
-        // モバイルブラウザでも確実に動作するよう、DOMに追加してからクリックする
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -202,7 +201,11 @@ async function generateImageWithQRCode(url, image) {
     const moduleCount = qr.getModuleCount();
     const cellSize = qrSize / moduleCount;
     
+<<<<<<< Updated upstream
    // 背景は完全な単色ではなく、半透明の白を重ねる方式にする
+=======
+    // 背景は完全な単色ではなく、半透明の白を重ねる方式にする
+>>>>>>> Stashed changes
     // → 下にある画像の色がうっすら透けて見えるため、周囲の色に自然に馴染みつつ、
     //   白が支配的な配色を保つことでQRコードとしての標準的な見た目（明るい背景+暗いモジュール）を維持する
     const bgPadding = Math.floor(qrSize * 0.05);
