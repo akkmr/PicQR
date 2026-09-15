@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-    <script src="https://kit.fontawesome.com/0f7772acac.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.0.7/build/qr-code-styling.min.js"></script>
   </head>
   <body>
@@ -34,28 +34,42 @@
         </p>
         <div class="url-input">
           <input type="text" id="url-input" placeholder="Enter URL">
+          <button type="button" id="clear-url-btn" aria-label="URLをクリア">×</button>
         </div>
-        <i class="fa-solid fa-down-long"></i><br>
         <p class="io">
           <span class="pictograms">
-            <i class="fa-solid fa-qrcode"></i>
-            on
-            <i class="fa-regular fa-image"></i>
+            <i class="fa-solid fa-down-long"></i><br>
           </span>
         </p>
+        <p class="io">
+          <span class="pictograms">
+            <i class="fa-regular fa-image"></i>
+            with
+            <i class="fa-solid fa-qrcode"></i>
+          </span>
+        </p>
+        <div class="qr-color-section">
+          <label for="qr-color">QR Color: </label>
+          <input type="color" id="qr-color" value="#000000">
+          <button type="button" id="auto-color-btn">Auto</button>
+          <p class="color-warning" id="color-warning" style="display:none;">
+            The color you selected has low contrast with the background (white), which may make it impossible to scan the QR.
+          </p>
+        </div>
         <div class="button">
-          <button id="generate-qr-btn">Generate QR on Image</button>
+          <button id="generate-qr-btn">Generate Pic with QR</button>
         </div>
         <div class="image-output">
-          <canvas id="output-canvas"></canvas>
+          <canvas id="output-canvas" style="display:none;"></canvas>
+          <img id="output-image" style="display:none;" alt="QRコード付き画像">
         </div>
         <div class="download-section" id="download-section" style="display: none;">
-          <button id="download-btn">Download Image</button>
+          <button id="download-btn">Save Image</button>
         </div>
         <script src="app.js"></script>
         <div class="copyright">
           <p>
-            ©︎ 2023 Akihito Kimura
+            ©︎ 2023-2026 Akihito Kimura
           </p>
         </div>
       </div>
